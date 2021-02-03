@@ -1,0 +1,10 @@
+Загружаем утилиту командой git cone https://github.com/maurosoria/dirsearch.git. Устанавливать ее не требуется, для запуска нужен python 3. В качестве цели выберем адрес http://192.168.56.103/mutillidae/.
+Команда будет следующая: 
+python3 dirsearch.py -u 'http://192.168.56.103/mutillidae' -e php,txt,html -w /usr/share/dirb/wordlists/big.txt -x 503,403 --random-agent
+где:
+-u 'http://192.168.56.103/mutillidae' — указание цели;
+-e php,txt,html — выбор расширений для сканирования;
+-w /usr/share/dirb/wordlists/big.txt — словарь для использования;
+-x 503,403 — исключить ответы с указанным кодом;
+--random-agent — использовать рандомный агент;
+В результате утилита будет сканировать указанный хост:
