@@ -1,0 +1,2 @@
+# uploads test directory
+nmap --script http-methods --script-args http-methods.url-path=/uploads,http-methods.test-all -p 80 192.168.56.11
