@@ -23,4 +23,5 @@ header("Location: http://www.google.ru/");
 set_cookie_flag HttpOnly secure;
 # for apache2
 Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
-in httpd.conf
+Header set Content-Security-Policy "default-src 'self';”
+#in default.conf
