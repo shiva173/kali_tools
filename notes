@@ -1,4 +1,6 @@
+wget --accept pdf,jpg --mirror --page-requisites --adjust-extension --convert-links --backup-converted --no-parent http://192.168.31.45/mutillidae поиск файлов определенного типа
 exiftool получение данных по файлу метаданные 
+
 searchsploit drupal 7.1 - поиск эксплоитов для к примеру drupal
 robot.txt - защита от парсинга 
 причины спайдеринга отличные ошибки от 404
