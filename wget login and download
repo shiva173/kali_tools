@@ -1,0 +1,10 @@
+wget --save-cookies cookies.txt \
+     --keep-session-cookies \
+     --post-data 'user=bee&password=bug' \
+     --delete-after \
+     http://192.168.31.45/bwapp/login.php
+
+# Now grab the page or pages we care about.
+wget --load-cookies cookies.txt \
+     http://192.168.31.45/bwapp/ba_weak_pwd.php
+
