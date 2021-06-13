@@ -8,3 +8,6 @@ wget --save-cookies cookies.txt \
 wget --load-cookies cookies.txt \
      http://192.168.31.45/bwapp/ba_weak_pwd.php
 
+
+
+wget --accept pdf,jpg --mirror --page-requisites --adjust-extension --convert-links --backup-converted --no-parent http://192.168.31.45/mutillidae поиск файлов определенного типа
