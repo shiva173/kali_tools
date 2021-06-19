@@ -1,5 +1,5 @@
 # link for msfconsole https://www.offensive-security.com/metasploit-unleashed/msfconsole-commands/
-# show options show config payload 
+# show options #show config payload 
 # start postgresql
 # use msfconsole
 # LHOST current host not victim
